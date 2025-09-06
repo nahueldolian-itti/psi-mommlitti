@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: search-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/psi-search
+      database: psi-search
+
+server:
+  port: 8081
+
+aws:
+  region: us-east-1
+  sqs:
+    endpoint: http://localhost:9324  # For local development
+    session-events-queue-url: http://localhost:9324/queue/session-events
+    max-messages: 10
+    wait-time-seconds: 20
+
+newrelic:
+  app_name: psi-search-service
+  license_key: ${NEW_RELIC_LICENSE_KEY:your-license-key-here}
+
+logging:
+  level:
+    com.psi.search: DEBUG
+    org.springframework.data.mongodb: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

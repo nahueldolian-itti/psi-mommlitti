@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: booking-service
+
+server:
+  port: 8080
+
+aws:
+  region: us-east-1
+  dynamodb:
+    endpoint: http://localhost:8000  # For local development
+    table-name: psi-sessions
+  sns:
+    session-events-topic-arn: arn:aws:sns:us-east-1:123456789012:session-events
+  sqs:
+    endpoint: http://localhost:9324  # For local development
+
+newrelic:
+  app_name: psi-booking-service
+  license_key: ${NEW_RELIC_LICENSE_KEY:your-license-key-here}
+
+logging:
+  level:
+    com.psi.booking: DEBUG
+    software.amazon.awssdk: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
